@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Payment Success</title>
+  <script>
+    window.addEventListener('DOMContentLoaded', () => {
+      const params = new URLSearchParams(window.location.search);
+      const sessionId = params.get("session_id");
+
+      if (!sessionId) {
+        document.body.innerHTML = "<h2>Missing session ID</h2>";
+        return;
+      }
+
+      document.body.innerHTML = "<p>Verifying your payment...</p>";
+
+      fetch(`https://script.google.com/macros/s/AKfycbybrikCOcSwKx7jqkjt6mtxITQnOFFbWSHbXy8W8OdgR2m0_nzkJDFQCmzDY0j-OuAi/exec?verify=${sessionId}`)
+        .then(response => response.text())
+        .then(result => {
+          document.body.innerHTML = `<h2>${result}</h2>`;
+        })
+        .catch(error => {
+          console.error("Verification failed:", error);
+          document.body.innerHTML = "<h2>Verification failed. Please try again.</h2>";
+        });
+    });
+  </script>
+</head>
+<body>
+</body>
+</html>
