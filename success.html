@@ -15,7 +15,7 @@
 
       document.body.innerHTML = "<p>Verifying your payment...</p>";
 
-      fetch(`https://script.google.com/macros/s/AKfycbybrikCOcSwKx7jqkjt6mtxITQnOFFbWSHbXy8W8OdgR2m0_nzkJDFQCmzDY0j-OuAi/exec?verify=${sessionId}`)
+  fetch(`https://script.google.com/macros/s/AKfycbybrikCOcSwKx7jqkjt6mtxITQnOFFbWSHbXy8W8OdgR2m0_nzkJDFQCmzDY0j-OuAi/exec?session_id=${sessionId}`)
         .then(response => response.text())
         .then(result => {
           document.body.innerHTML = `<h2>${result}</h2>`;
