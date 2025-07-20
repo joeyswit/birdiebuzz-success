@@ -1,36 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Payment Success</title>
-  <script>
-    window.addEventListener('DOMContentLoaded', () => {
-      const params = new URLSearchParams(window.location.search);
-      const sessionId = params.get("session_id");
-      console.log("Session ID from URL:", sessionId);
-
-      if (!sessionId) {
-        document.body.innerHTML = "<h2>Missing session ID</h2>";
-        return;
-      }
-
-      document.body.innerHTML = "<p id='status'>Verifying your payment...</p>";
-
-      fetch(`https://script.google.com/macros/s/AKfycbybrikCOcSwKx7jqkjt6mtxITQnOFFbWSHbXy8W8OdgR2m0_nzkJDFQCmzDY0j-OuAi/exec?session_id=${sessionId}`)
-        .then(response => response.text())
-        .then(result => {
-          document.getElementById("status").innerText = result;
-        })
-        .catch(error => {
-          console.error("Verification failed:", error);
-          document.getElementById("status").innerHTML = `
-            <h2>Verification failed. Please try again.</h2>
-            <p>If the issue persists, contact support or try refreshing the page.</p>
-          `;
-        });
-    });
-  </script>
+  <style>
+    body {
+      font-family: sans-serif;
+      text-align: center;
+      padding: 2rem;
+    }
+    h1 {
+      color: green;
+    }
+    p {
+      font-size: 1.2rem;
+    }
+  </style>
 </head>
 <body>
+  <h1>✅ Payment Successful!</h1>
+  <p>You're all set. You'll receive alerts for your selected golfer(s) during the tournament.</p>
 </body>
 </html>
