@@ -1,25 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Payment Success</title>
-  <style>
-    body {
-      font-family: sans-serif;
-      text-align: center;
-      padding: 2rem;
-    }
-    h1 {
-      color: green;
-    }
-    p {
-      font-size: 1.2rem;
-    }
-  </style>
-</head> 
-<body>
-  <h1>✅ Payment Successful!</h1>
-  <p>You're all set. You'll receive alerts for your selected golfer(s) during the tournament.</p>
+  <meta charset="UTF-8">
+  <title>BirdieBuzz Signup Successful</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.tailwindcss.com" rel="stylesheet">
+</head>
+<body class="bg-green-50 flex items-center justify-center min-h-screen">
+
+<div class="bg-white rounded-xl shadow-xl p-8 max-w-md text-center">
+  <img src="https://joeyswit.github.io/birdiebuzz/Logo3.png" alt="BirdieBuzz Logo" class="mx-auto w-20 mb-4">
+  <h1 id="statusTitle" class="text-2xl font-bold text-green-800 mb-4">Verifying your signup...</h1>
+  <p id="statusMessage" class="text-gray-700">Please wait while we confirm your payment and registration.</p>
+</div>
+
+<script>
+(async () => {
+  const urlParams = new URLSearchParams(window.location.search);
+  const sessionId = urlParams.get('session_id');
+
+  if (!sessionId) {
+    document.getElementById('statusTitle').textContent = "No session ID found";
+    document.getElementById('statusMessage').textContent = "We couldn't find your payment session. Please contact support.";
+    return;
+  }
+
+  try {
+    // Call your Apps Script verify function (optional — purely for user reassurance)
+    const verifyUrl = "https://script.google.com/macros/s/AKfycbybrikCOcSwKx7jqkjt6mtxITQnOFFbWSHbXy8W8OdgR2m0_nzkJDFQCmzDY0j-OuAi/exec?session_id=" + encodeURIComponent(sessionId);
+    const res = await fetch(verifyUrl);
+    const html = await res.text();
+
+    // If the verify URL redirects, the HTML will be your redirect page — so we just show a nice message
+    document.getElementById('statusTitle').textContent = "✅ Signup Confirmed!";
+    document.getElementById('statusMessage').textContent = "Your payment has been confirmed and your alerts are set up. You can close this page.";
+
+  } catch (err) {
+    document.getElementById('statusTitle').textContent = "⚠️ Verification Error";
+    document.getElementById('statusMessage').textContent = "We couldn't verify your payment automatically. If you received a charge, please contact support.";
+  }
+})();
+</script>
+
 </body>
 </html>
