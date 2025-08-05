@@ -2,45 +2,51 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>BirdieBuzz Signup Successful</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link href="https://cdn.tailwindcss.com" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BirdieBuzz - Payment Successful</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #f0fdf4;
+      color: #065f46;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      text-align: center;
+      padding: 20px;
+    }
+    .container {
+      max-width: 500px;
+    }
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+    p {
+      font-size: 1.1rem;
+    }
+    a {
+      display: inline-block;
+      margin-top: 1.5rem;
+      padding: 0.75rem 1.5rem;
+      background-color: #10b981;
+      color: white;
+      border-radius: 0.5rem;
+      text-decoration: none;
+    }
+    a:hover {
+      background-color: #059669;
+    }
+  </style>
 </head>
-<body class="bg-green-50 flex items-center justify-center min-h-screen">
-
-<div class="bg-white rounded-xl shadow-xl p-8 max-w-md text-center">
-  <img src="https://joeyswit.github.io/birdiebuzz/Logo3.png" alt="BirdieBuzz Logo" class="mx-auto w-20 mb-4">
-  <h1 id="statusTitle" class="text-2xl font-bold text-green-800 mb-4">Verifying your signup...</h1>
-  <p id="statusMessage" class="text-gray-700">Please wait while we confirm your payment and registration.</p>
-</div>
-
-<script>
-(async () => {
-  const urlParams = new URLSearchParams(window.location.search);
-  const sessionId = urlParams.get('session_id');
-
-  if (!sessionId) {
-    document.getElementById('statusTitle').textContent = "No session ID found";
-    document.getElementById('statusMessage').textContent = "We couldn't find your payment session. Please contact support.";
-    return;
-  }
-
-  try {
-    // Call your Apps Script verify function (optional — purely for user reassurance)
-    const verifyUrl = "https://script.google.com/macros/s/AKfycbybrikCOcSwKx7jqkjt6mtxITQnOFFbWSHbXy8W8OdgR2m0_nzkJDFQCmzDY0j-OuAi/exec?session_id=" + encodeURIComponent(sessionId);
-    const res = await fetch(verifyUrl);
-    const html = await res.text();
-
-    // If the verify URL redirects, the HTML will be your redirect page — so we just show a nice message
-    document.getElementById('statusTitle').textContent = "✅ Signup Confirmed!";
-    document.getElementById('statusMessage').textContent = "Your payment has been confirmed and your alerts are set up. You can close this page.";
-
-  } catch (err) {
-    document.getElementById('statusTitle').textContent = "⚠️ Verification Error";
-    document.getElementById('statusMessage').textContent = "We couldn't verify your payment automatically. If you received a charge, please contact support.";
-  }
-})();
-</script>
-
+<body>
+  <div class="container">
+    <h1>✅ Payment Successful!</h1>
+    <p>Thank you for your purchase. Your subscription has been activated.</p>
+    <p>You'll start receiving BirdieBuzz alerts shortly.</p>
+    <a href="https://joeyswit.github.io/birdiebuzz/">Return to Home</a>
+  </div>
 </body>
 </html>
